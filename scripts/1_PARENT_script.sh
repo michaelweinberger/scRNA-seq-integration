@@ -49,9 +49,9 @@ input_file_list=("/ceph/project/tsslab/mweinber/2023_datasets/datasets_scRNAseq/
 
 
 
-##############   scVI + scanVI integration   ##############
+##############   scVI + scANVI integration   ##############
 
-# indicate if scVI and scanVI("Yes" or "No")
+# indicate if scVI and scANVI("Yes" or "No")
 scvi_run="No"
 
 # indicate name of metadata column that should be used for scVI integration
@@ -76,7 +76,7 @@ n_latent=20
 # indicate the number of scVI training epochs (if set to "auto", the algorithm will estimate the optimal number of epochs based on dataset size)
 scvi_epochs="auto"
 
-# indicate the number of scanVI training epochs
+# indicate the number of scANVI training epochs
 scanvi_epochs=50
 
 # indicate the minimum number of genes a cell needs to express to be kept in the datasets

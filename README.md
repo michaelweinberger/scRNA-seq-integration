@@ -14,7 +14,7 @@ SAMap specifically works to integrate cross-species datasets, and as a first ste
 The pipeline is designed to be run on a high performance server, via the Slurm scheduler. Modules loaded in the scripts that we used to run the analysis are:
 R-base/4.3.0, python-base/3.11.3,  blast/2.11.0
 
-Note: The SAMap analysis is run within an Anaconda environment. The following commands have worked for me to set up the environment:
+**Note:** The SAMap analysis is run within an Anaconda environment. The following commands have worked for me to set up the environment:
 ```
 $ conda create -n SAMap -c conda-forge python=3.9 numpy=1.23.5 pip pybind11 leidenalg
 $ python-igraph texttable
@@ -43,7 +43,7 @@ $ git clone https://github.com/michaelweinberger/scRNA-seq-integration.git
 - `script_dir`   Directory containing scripts copied from https://github.com/michaelweinberger/scRNA-seq-integration/scripts/
 - `out_dir`   Directory containing all output, will be created if non-existent
 - `input_file_list`   List of file paths pointing to Scanpy objects containing scRNA-seq data to be integrated. The objects should contain a full matrix of raw expression counts in the .X slot (expression matrix should not be subset to highly variable genes). The .obs metadata in each object should contain an identically named column (e.g. "sample_id" or "cell_type") which will be used in scVI as key for data integration (`scvi_key`) and in SAMap as key to determine the maximum neighbourhood size of each cell (`samap_key`). <br>
-Note: When running the scRNA-seq annotation part of the pipeline in https://github.com/michaelweinberger/scRNA-seq_and_scATAC-seq_analysis_pipeline in "scanpy" mode, an input file for scVI/scANVI and SAMap integration is generated as [out_name]_scRNAseq_no_doublets_annotated_scVI.h5ad in the directory [out_dir]/scanpy/
+**Note:** When running the scRNA-seq annotation part of the pipeline in https://github.com/michaelweinberger/scRNA-seq_and_scATAC-seq_analysis_pipeline in "scanpy" mode, an input file for scVI/scANVI and SAMap integration is generated as [out_name]_scRNAseq_no_doublets_annotated_scVI.h5ad in the directory [out_dir]/scanpy/
 - `species_list`   List of species names that the scRNA-seq objects in  `input_file_list` were generated in, one of "human", "mouse" or "zebrafish". The order of `species_list` should match that of `input_file_list`. Each species should be named only once in `species_list`, ie. each input dataset should originate from a different species.
 
 #### scVI/scANVI integration

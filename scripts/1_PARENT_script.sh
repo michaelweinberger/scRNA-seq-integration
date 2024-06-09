@@ -2,11 +2,8 @@
 
 
 #Format of --time is DAYS-HOURS:MINUTES:SECONDS
-#SBATCH --time=0-12:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --mem=100G
-
-####SBATCH --cpus-per-task=30
-####SBATCH --partition=long
 
 #SBATCH --partition=gpu
 #SBATCH --gpus=2
@@ -38,21 +35,21 @@ script_dir="/ceph/project/tsslab/mweinber/tmp/scripts_scvi"
 # if directory does not exist, it will be generated
 out_dir="/ceph/project/tsslab/mweinber/tmp/out_scvi"
 
-# specify list of species that datasets have been generated in ("human", "mouse" or "zebrafish"),
-# order needs to match datasets supplied in input_file_list
-species_list=("human" "mouse")
-
 # supply list of file paths to non-clustered Scanpy objects containing count matrix of all genes
 input_file_list=("/ceph/project/tsslab/mweinber/2023_datasets/datasets_scRNAseq/Kuppe_et_al_10.1038s41586-022-05060-x/scanpy/Kuppe_scRNAseq_no_doublets_annotated_scVI.h5ad"
 "/ceph/project/tsslab/mweinber/2023_datasets/datasets_scRNAseq/Wang_et_al_10.1016j.celrep.2020.108472/scanpy/Wang_scRNAseq_no_doublets_annotated_scVI.h5ad"
 )
 
+# specify list of species that datasets have been generated in ("human", "mouse" or "zebrafish"),
+# order needs to match datasets supplied in input_file_list
+species_list=("human" "mouse")
+
 
 
 ##############   scVI + scANVI integration   ##############
 
-# indicate if scVI and scANVI("Yes" or "No")
-scvi_run="No"
+# indicate if scVI and scANVI should be run ("Yes" or "No")
+scvi_run="Yes"
 
 # indicate name of metadata column that should be used for scVI integration
 scvi_key="sample_id"
@@ -104,9 +101,9 @@ samap_blast="No"
 
 
 # indicate if SAMap integration should be run ("Yes" or "No")
-samap_run="Yes"
+samap_run="No"
 
-# indicate name of metadata column that should be used for SAMap integration
+# indicate name of metadata column that should be used for determining maximum neighbourhood size of each cell
 samap_key="cell_type"
 
 # indicate cell clustering resolution of integrated dataset
@@ -273,31 +270,13 @@ if test $samap_run = "Yes"; then
 	# generate SAMap input objects
 	python ${script_dir}/6_generate_samap_input.py -o $out_dir
 
-
-	module unload python-cbrg
-
-	# Install SAMap dependencies available in conda
-	#conda create -n SAMap -c conda-forge python=3.9 numpy=1.23.5 pip pybind11 leidenalg python-igraph texttable
-	#conda activate SAMap
-	#git clone https://github.com/atarashansky/SAMap.git samap_directory
-	#cd samap_directory
-	#pip install .
-	#pip install --force-reinstall --no-cache-dir holoviews
-	#pip install --force-reinstall --no-cache-dir selenium
-	#conda install -c conda-forge firefox geckodriver
-	#pip install --force-reinstall --no-cache-dir numpy==1.23.5
-
-	# if there are issues with "Illegal instruction" error: https://github.com/conda-forge/hnswlib-feedstock/pull/11
-	#pip install --force-reinstall --no-cache-dir hnswlib==0.7.0
-
 	# run SAMap
+	module unload python-cbrg
 	conda run -n SAMap python ${script_dir}/7_samap.py -o $out_dir -n $project -k $samap_key -r $clustering_resolution_samap
-
-	# plot UMAPs using SAMap output
 	module load python-cbrg
 
+	# plot UMAPs using SAMap output
 	python ${script_dir}/8_samap_plotting.py -o ${out_dir}/SAMap/out/transcriptome/${project} -n $project -k $samap_key -r $clustering_resolution_samap
-
 	python ${script_dir}/8_samap_plotting.py -o ${out_dir}/SAMap/out/coding_sequences/${project} -n $project -k $samap_key -r $clustering_resolution_samap
 fi
 

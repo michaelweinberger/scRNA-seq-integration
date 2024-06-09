@@ -31,21 +31,20 @@ $ pip install --force-reinstall --no-cache-dir hnswlib==0.7.0
 
 To run the pipeline:
   <br>
-### 1. Clone the repository via:
+#### 1. Clone the repository via:
 ```
 $ git clone https://github.com/michaelweinberger/scRNA-seq-integration.git
 ```
    
-### 2. Adjust the `User defined variables` section of the **1_PARENT_script.sh** script:
-  <br>
-  
+#### 2. Adjust the `User defined variables` section of the **1_PARENT_script.sh** script:
+
 ##### General
 - `project`   Name for the project
 - `script_dir`   Directory containing scripts copied from https://github.com/michaelweinberger/ scRNA-seq-integration/scripts/
 - `out_dir`   Directory containing all output, will be created if non-existent
 - `input_file_list`   List of file paths pointing to Scanpy objects containing scRNA-seq data to be integrated. The objects should contain a full matrix of raw expression counts in the .X slot (expression matrix should not be subset to highly variable genes). The .obs metadata in each object should contain an identically named column (e.g. "sample_id" or "cell_type") which will be used in scVI as key for data integration (`scvi_key`) and in SAMap as key to determine the maximum neighbourhood size of each cell (`samap_key`).
 - `species_list`   List of species names that the scRNA-seq objects in  `input_file_list` were generated in, one of "human", "mouse" or "zebrafish". The order of `species_list` should match that of `input_file_list`. Each species should be named only once in `species_list`, ie. each input dataset should originate from a different species.
-
+<br>
 ##### scVI/scANVI integration
 - `scvi_run`   Indicates if integration via scVI and scANVI should be run ("Yes" or "No")
 - `scvi_key`   Name of the .obs metadata column in the input Anndata objects that should be used for scVI integration
@@ -61,14 +60,14 @@ $ git clone https://github.com/michaelweinberger/scRNA-seq-integration.git
 - ` pct_mt_cutoff `   Indicates the maximum percentage of mitochondrial gene counts for a cell to be kept in the datasets
 - `min_cells`   Indicates the minimum number of cells in which a gene needs to be detected to be kept in the datasets
 - `clustering_resolution_scvi`   Indicates the resolution to be used when clustering the integrated dataset
-
+<br>
 ##### SAMap integration
 - `samap_blast`   Indicates if transcriptome BLAST databases should be generated ("Yes" or "No"). This step only needs to be performed once for each species.
 - `samap_run`   Indicates if SAMap integration should be run ("Yes" or "No")
 - `samap_key`   Name of the .obs metadata column that should be used for determining maximum neighbourhood size of each cell
 - `clustering_resolution_samap`   Indicates the resolution to be used when clustering the integrated dataset
 
-### 3. Finally, start the analysis via
+#### 3. Finally, start the analysis via
 ```
 $ sbatch 1_PARENT_script.sh
 ```

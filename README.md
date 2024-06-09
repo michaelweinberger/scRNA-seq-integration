@@ -5,7 +5,7 @@ Use this pipeline to integrate scRNA-seq datasets using either:
 - [SAMap](https://github.com/atarashansky/SAMap?tab=readme-ov-file)<sup>3</sup>
 
 The datasets to be integrated should contain human, mouse or zebrafish data. 
-Before integration using scVI/scANVI, gene names across datasets will be assimilated with the preference human > mouse > zebrafish (ie. if there is a human dataset, gene names in all other datasets will be converted to human gene names. If there is no human dataset but a mouse and a zebrafish dataset, gene names will be converted to mouse nomenclature). Integration using scVI is not limited to cross-species integration, but can be performed on any metadata variable specified. The output of scVI is used as input to scANVI, which uses cell type labels to optimise data integration.
+Before integration using scVI/scANVI, gene names across datasets will be assimilated with the preference human > mouse > zebrafish (ie. if there is a human dataset, gene names in all other datasets will be converted to human gene names. If there is no human dataset but a mouse and a zebrafish dataset, gene names will be converted to mouse nomenclature). Integration using scVI is not limited to cross-species integration, but can be performed on any metadata variable specified. The output of scVI is used as input to scANVI, which uses cell type labels to optimise data integration. <br>
 SAMap specifically works to integrate cross-species datasets, and as a first step generates BLAST databases comparing either whole transcriptomes or coding sequence subsets between species.
 
 

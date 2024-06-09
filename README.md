@@ -4,7 +4,7 @@ Use this pipeline to integrate scRNA-seq datasets using either:
 - [scVI](https://docs.scvi-tools.org/en/stable/user_guide/models/scvi.html)<sup>1</sup> and [scANVI](https://docs.scvi-tools.org/en/stable/user_guide/models/scanvi.html)<sup>2</sup>, or
 - [SAMap](https://github.com/atarashansky/SAMap?tab=readme-ov-file)<sup>3</sup>
 
-The datasets to be integrated should contain human, mouse or zebrafish data. 
+The datasets to be integrated should contain human, mouse or zebrafish data. <br>
 Before integration using scVI/scANVI, gene names across datasets will be assimilated with the preference human > mouse > zebrafish (ie. if there is a human dataset, gene names in all other datasets will be converted to human gene names. If there is no human dataset but a mouse and a zebrafish dataset, gene names will be converted to mouse nomenclature). Integration using scVI is not limited to cross-species integration, but can be performed on any metadata variable specified. The output of scVI is used as input to scANVI, which uses cell type labels to optimise data integration. <br>
 SAMap specifically works to integrate cross-species datasets, and as a first step generates BLAST databases comparing either whole transcriptomes or coding sequence subsets between species.
 
@@ -42,7 +42,7 @@ To run the pipeline:
 - `script_dir`   Directory containing scripts copied from https://github.com/michaelweinberger/ scRNA-seq-integration/scripts/
 - `out_dir`   Directory containing all output, will be created if non-existent
 - `input_file_list`   List of file paths pointing to Scanpy objects containing scRNA-seq data to be integrated. The objects should contain a full matrix of raw expression counts in the .X slot (expression matrix should not be subset to highly variable genes). The .obs metadata in each object should contain an identically named column (e.g. "sample_id" or "cell_type") which will be used in scVI as key for data integration (`scvi_key`) and in SAMap as key to determine the maximum neighbourhood size of each cell (`samap_key`).
-- `species_list`   List of species names that the scRNA-seq objects in  `input_file_list` were generated in, one of "human", "mouse" or "zebrafish". The order of `species_list` should match that of `input_file_list`. Each species should be named only once in `species_list`, ie. Each input dataset should 
+- `species_list`   List of species names that the scRNA-seq objects in  `input_file_list` were generated in, one of "human", "mouse" or "zebrafish". The order of `species_list` should match that of `input_file_list`. Each species should be named only once in `species_list`, ie. each input dataset should originate from a different species.
 
 ### scVI/scANVI integration
 - `scvi_run`   Indicates if integration via scVI and scANVI should be run ("Yes" or "No")

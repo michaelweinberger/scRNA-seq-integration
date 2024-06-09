@@ -33,7 +33,7 @@ To run the pipeline:
 
 1. Clone the repository via:
 ```
-    git clone https://github.com/michaelweinberger/scRNA-seq-integration.git
+$ git clone https://github.com/michaelweinberger/scRNA-seq-integration.git
 ```
    
 2. Adjust the `User defined variables` section of the **1_PARENT_script.sh** script:
@@ -58,17 +58,17 @@ To run the pipeline:
 - `max_genes`   Indicates the maximum number of genes detected for a cell to be kept in the datasets
 - ` pct_mt_cutoff `   Indicates the maximum percentage of mitochondrial gene counts for a cell to be kept in the datasets
 - `min_cells`   Indicates the minimum number of cells in which a gene needs to be detected to be kept in the datasets
-- clustering_resolution_scvi `   Indicates the resolution to be used when clustering the integrated dataset
+- `clustering_resolution_scvi`   Indicates the resolution to be used when clustering the integrated dataset
 
 ### SAMap integration
-- samap_blast   Indicates if transcriptome BLAST databases should be generated ("Yes" or "No"). This step only needs to be performed once for each species.
-- samap_run   Indicates if SAMap integration should be run ("Yes" or "No")
-- samap_key   Name of the .obs metadata column that should be used for determining maximum neighbourhood size of each cell
-- clustering_resolution_samap   Indicates the resolution to be used when clustering the integrated dataset
+- `samap_blast`   Indicates if transcriptome BLAST databases should be generated ("Yes" or "No"). This step only needs to be performed once for each species.
+- `samap_run`   Indicates if SAMap integration should be run ("Yes" or "No")
+- `samap_key`   Name of the .obs metadata column that should be used for determining maximum neighbourhood size of each cell
+- `clustering_resolution_samap`   Indicates the resolution to be used when clustering the integrated dataset
 
 3. Finally, start the analysis via
 ```
-sbatch 1_PARENT_script.sh
+$ sbatch 1_PARENT_script.sh
 ```
 
 ## References

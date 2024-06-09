@@ -1,6 +1,6 @@
 # A pipeline to integrate scRNA-seq datasets using scVI/scANVI or SAMap
 ---
-Use this pipeline to integrate scRNA-seq datasets using either:
+Use this pipeline to integrate scRNA-seq datasets (Anndata objects) using either:
 - [scVI](https://docs.scvi-tools.org/en/stable/user_guide/models/scvi.html)<sup>1</sup> and [scANVI](https://docs.scvi-tools.org/en/stable/user_guide/models/scanvi.html)<sup>2</sup>, or
 - [SAMap](https://github.com/atarashansky/SAMap?tab=readme-ov-file)<sup>3</sup>
 
